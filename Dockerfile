@@ -14,15 +14,15 @@ RUN git clone --depth 1 --branch ${UPSTREAM_VERSION?upstream version not provide
 WORKDIR /MusicBot
 RUN sed -i -e s/Snapshot/${UPSTREAM_VERSION?upstream version not provided}/g ./pom.xml
 RUN mvn verify
+RUN mv /MusicBot/target/JMusicBot-${UPSTREAM_VERSION?upstream version not provided}-All.jar /MusicBot/target/JMusicBot.jar
 
 FROM ubuntu:jammy as release
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends default-jre
 ARG UPSTREAM_VERSION
-RUN mkdir /config
 RUN mkdir /app
 WORKDIR /app
-COPY --from=builder "/MusicBot/target/JMusicBot-${UPSTREAM_VERSION?upstream version not provided}-All.jar" ./JMusicBot.jar
-RUN useradd -s nonroot
+COPY --from=builder /MusicBot/target/JMusicBot.jar ./JMusicBot.jar
+RUN useradd nonroot
 USER nonroot
 ENTRYPOINT java -Dnogui=true -jar JMusicBot.jar
