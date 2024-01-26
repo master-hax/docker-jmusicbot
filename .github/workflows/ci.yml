@@ -27,7 +27,7 @@ jobs:
           push: true
           tags: masterhax/jmusicbot:ubuntu-3.9.0
           build-args: |
-            UPSTREAM_VERSION=3.9.0
+            UPSTREAM_VERSION="3.9.0"
       - name: build master
         uses: docker/build-push-action@v5
         with:
