@@ -25,7 +25,9 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: masterhax/jmusicbot:ubuntu-0.3.9
+          tags: |
+            masterhax/jmusicbot:ubuntu-0.3.9
+            masterhax/jmusicbot:ubuntu-0.3.9_${{ env.GITHUB_SHA }}
           build-args: |
             UPSTREAM_VERSION=0.3.9
       - name: build master
@@ -34,6 +36,8 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: masterhax/jmusicbot:ubuntu-master
+          tags: |
+            masterhax/jmusicbot:ubuntu-master
+            masterhax/jmusicbot:ubuntu-master_${{ env.GITHUB_SHA }}
           build-args: |
             UPSTREAM_VERSION=master
