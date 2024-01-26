@@ -25,4 +25,4 @@ WORKDIR /app
 COPY --from=builder /MusicBot/target/JMusicBot.jar ./JMusicBot.jar
 RUN useradd nonroot
 USER nonroot
-ENTRYPOINT java -Dnogui=true -jar JMusicBot.jar
+ENTRYPOINT [ "/bin/sh", "-c",  "java -jar -Dnogui=true -Dconfig.file=${CONFIG_FILE:-config.txt} JMusicBot.jar" ]

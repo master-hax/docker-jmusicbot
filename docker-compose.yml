@@ -2,10 +2,11 @@ services:
   jmusicbot:
     container_name: jmusicbot
     restart: unless-stopped
-    build:
-      context: .
-      args:
-        UPSTREAM_VERSION: 0.3.9
+    image: masterhax/jmusicbot:ubuntu-0.3.9
+    # build:
+    #   context: .
+    #   args:
+    #     UPSTREAM_VERSION: 0.3.9
     environment:
       CONFIG_FILE: /run/secrets/da_config_file
     secrets:
