@@ -19,6 +19,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: build 3.9.0
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: masterhax/jmusicbot:ubuntu-3.9.0
+          build-args: |
+            UPSTREAM_VERSION=3.9.0
       - name: build master
         uses: docker/build-push-action@v5
         with:
@@ -28,12 +37,3 @@ jobs:
           tags: masterhax/jmusicbot:ubuntu-master
           build-args: |
             UPSTREAM_VERSION=master
-      - name: build master
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: masterhax/jmusicbot:ubuntu-3.9.0
-          build-args: |
-            UPSTREAM_VERSION=3.9.0
