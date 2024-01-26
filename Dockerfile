@@ -22,7 +22,7 @@ ARG UPSTREAM_VERSION
 RUN mkdir /config
 RUN mkdir /app
 WORKDIR /app
-COPY --from=builder /MusicBot/target/JMusicBot-${UPSTREAM_VERSION?upstream version not provided}-All.jar ./JMusicBot.jar
+COPY --from=builder "/MusicBot/target/JMusicBot-${UPSTREAM_VERSION?upstream version not provided}-All.jar" ./JMusicBot.jar
 RUN useradd -s nonroot
 USER nonroot
 ENTRYPOINT java -Dnogui=true -jar JMusicBot.jar
