@@ -19,7 +19,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: build 3.9.0
+      - name: build 0.3.9
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -27,7 +27,7 @@ jobs:
           push: true
           tags: masterhax/jmusicbot:ubuntu-3.9.0
           build-args: |
-            UPSTREAM_VERSION="3.9.0"
+            UPSTREAM_VERSION=0.3.9
       - name: build master
         uses: docker/build-push-action@v5
         with:
