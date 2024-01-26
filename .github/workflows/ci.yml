@@ -25,7 +25,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: masterhax/jmusicbot:ubuntu-3.9.0
+          tags: masterhax/jmusicbot:ubuntu-0.3.9
           build-args: |
             UPSTREAM_VERSION=0.3.9
       - name: build master
