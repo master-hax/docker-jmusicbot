@@ -20,10 +20,11 @@ FROM ubuntu:jammy as release
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends default-jre
 ARG UPSTREAM_VERSION
+RUN mkdir /config
 RUN mkdir /app
 WORKDIR /app
 COPY --from=builder /MusicBot/target/JMusicBot-${UPSTREAM_VERSION}-All.jar ./JMusicBot.jar
-RUN useradd nonroot
+
+RUN useradd -s nonroot
 USER nonroot
-ENV CONFIG_FILE_PATH="config.txt"
-ENTRYPOINT java -Dnogui=true -Dconfig=${CONFIG_FILE_PATH} -jar JMusicBot.jar
+ENTRYPOINT java -Dnogui=true -jar JMusicBot.jar
