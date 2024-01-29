@@ -1,0 +1,24 @@
+FROM scratch
+MAINTAINER master-hax
+ARG UPSTREAM_VERSION
+
+FROM alpine:3.19 as builder
+RUN apk add \
+git \
+maven
+ARG UPSTREAM_VERSION
+RUN git clone --depth 1 --branch ${UPSTREAM_VERSION?upstream version not provided} https://github.com/jagrosh/MusicBot.git
+WORKDIR /MusicBot
+RUN sed -i -e s/Snapshot/${UPSTREAM_VERSION?upstream version not provided}/g ./pom.xml
+RUN mvn verify
+RUN mv /MusicBot/target/JMusicBot-${UPSTREAM_VERSION?upstream version not provided}-All.jar /MusicBot/target/JMusicBot.jar
+
+FROM alpine:3.19 as release
+RUN apk update
+RUN apk add openjdk21-jre
+RUN mkdir /app
+WORKDIR /app
+COPY --from=builder /MusicBot/target/JMusicBot.jar ./JMusicBot.jar
+RUN adduser --disabled-password --no-create-home nonroot
+USER nonroot
+ENTRYPOINT [ "/bin/sh", "-c",  "java -jar -Dnogui=true -Dconfig.file=${CONFIG_FILE:-config.txt} JMusicBot.jar" ]
