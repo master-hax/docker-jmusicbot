@@ -50,9 +50,8 @@ jobs:
           push: true
           file: Dockerfile.alpine
           tags: |
-            masterhax/jmusicbot:master-ubuntu
-            masterhax/jmusicbot:master-ubuntu_${{ github.sha }}
-            masterhax/jmusicbot:latest
+            masterhax/jmusicbot:master-alpine
+            masterhax/jmusicbot:master-alpine_${{ github.sha }}
           build-args: |
             UPSTREAM_VERSION=master
             
