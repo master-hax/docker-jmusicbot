@@ -26,8 +26,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            masterhax/jmusicbot:ubuntu-master
-            masterhax/jmusicbot:ubuntu-master_${{ github.sha }}
+            masterhax/jmusicbot:master-ubuntu
+            masterhax/jmusicbot:master-ubuntu_${{ github.sha }}
             masterhax/jmusicbot:latest
           build-args: |
             UPSTREAM_VERSION=master
@@ -38,7 +38,21 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            masterhax/jmusicbot:ubuntu-0.3.9
-            masterhax/jmusicbot:ubuntu-0.3.9_${{ github.sha }}
+            masterhax/jmusicbot:0.3.9-ubuntu
+            masterhax/jmusicbot:0.3.9-ubuntu_${{ github.sha }}
           build-args: |
             UPSTREAM_VERSION=0.3.9
+      - name: build & push upstream master off alpine
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          file: Dockerfile.alpine
+          tags: |
+            masterhax/jmusicbot:master-ubuntu
+            masterhax/jmusicbot:master-ubuntu_${{ github.sha }}
+            masterhax/jmusicbot:latest
+          build-args: |
+            UPSTREAM_VERSION=master
+            
