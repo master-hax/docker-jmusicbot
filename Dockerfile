@@ -2,8 +2,10 @@ FROM scratch
 MAINTAINER master-hax
 ARG UPSTREAM_VERSION
 
-FROM ubuntu:jammy as builder
+FROM ubuntu:jammy as base
 RUN apt-get update
+
+FROM base as builder
 RUN apt-get install -y --no-install-recommends \
 git \
 curl \
@@ -16,8 +18,7 @@ RUN sed -i -e s/Snapshot/${UPSTREAM_VERSION?upstream version not provided}/g ./p
 RUN mvn verify
 RUN mv /MusicBot/target/JMusicBot-${UPSTREAM_VERSION?upstream version not provided}-All.jar /MusicBot/target/JMusicBot.jar
 
-FROM ubuntu:jammy as release
-RUN apt-get update
+FROM base as release
 RUN apt-get install -y --no-install-recommends default-jre
 ARG UPSTREAM_VERSION
 RUN mkdir /app
